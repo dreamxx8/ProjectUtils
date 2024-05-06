@@ -40,7 +40,7 @@ BoxDecoration CustomShadow({Color? color}){
     borderRadius: BorderRadius.circular(8.0),
     boxShadow: [
       BoxShadow(
-        color: color_shadow,
+        color: color_19162B,
           offset: Offset(0.0, 2.0),
           blurRadius: 5.0,
           spreadRadius: 0,

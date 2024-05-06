@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_browser/page_color_manager/color_browser_page.dart';
 import 'package:image_browser/page_custom_widget/custom_widget_page.dart';
 import 'package:image_browser/page_image_manager/image_browser_page.dart';
 import 'package:image_browser/page_utils_method/utils_method_page.dart';
@@ -64,6 +65,7 @@ class _MainPageState extends State<MainPage> with _MainPageBloc {
         top: BorderSide(width: 1, color: Colors.black.withOpacity(0.05)),
       ),
       items: [
+        _bottomNavigationBarItem(CupertinoIcons.shopping_cart, "颜色"),
         _bottomNavigationBarItem(CupertinoIcons.home, "工具"),
         _bottomNavigationBarItem(CupertinoIcons.arrow_3_trianglepath, "组件"),
         _bottomNavigationBarItem(CupertinoIcons.app_badge, "图片"),
@@ -94,6 +96,7 @@ mixin _MainPageBloc on State<MainPage> {
   _init() {
     _pages = [
       // const HomePage(),
+      ColorBrowserPage(),
       UtilsMethodPage(),
       CustomWidgetPage(),
       ImageBrowserPage(),
