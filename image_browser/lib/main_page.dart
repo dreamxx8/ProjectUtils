@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage> with _MainPageBloc {
         top: BorderSide(width: 1, color: Colors.black.withOpacity(0.05)),
       ),
       items: [
-        _bottomNavigationBarItem(CupertinoIcons.home, "首页"),
+        _bottomNavigationBarItem(CupertinoIcons.home, "工具"),
         _bottomNavigationBarItem(CupertinoIcons.arrow_3_trianglepath, "组件"),
         _bottomNavigationBarItem(CupertinoIcons.app_badge, "图片"),
       ],

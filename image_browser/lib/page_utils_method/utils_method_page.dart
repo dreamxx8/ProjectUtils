@@ -22,6 +22,9 @@ import 'package:image_browser/page_utils_method/widget/util_class.dart';
 import 'package:image_browser/page_utils_method/widget/util_class2.dart';
 import 'package:image_browser/page_utils_method/widget/util_class3.dart';
 import 'package:image_browser/page_utils_method/widget/util_common.dart';
+import 'package:image_browser/page_utils_method/widget/util_string.dart';
+import 'package:image_browser/page_utils_method/widget/util_string2.dart';
+import 'package:image_browser/page_utils_method/widget/util_string3.dart';
 import 'package:image_browser/theme/bf_global.dart';
 import 'package:image_browser/theme/color_ext.dart';
 
@@ -51,10 +54,14 @@ class _UtilsMethodPageState extends State<UtilsMethodPage> {
                 spacing: 30,
                 runSpacing: 30,
                 children: [
+                  UtilString(),
+                  UtilString2(),
+                  UtilString3(),
                   UtilCommon(),
                   UtilClass(),
                   UtilClass2(),
                   UtilClass3(),
+
                 ],
               ),
             ],

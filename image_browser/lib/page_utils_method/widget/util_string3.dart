@@ -12,53 +12,42 @@ import 'package:image_browser/page_utils_method/widget/item/utils_item.dart';
 import 'package:image_browser/theme/bf_global.dart';
 import 'package:image_browser/theme/color_ext.dart';
 
-class UtilClass2 extends StatefulWidget {
-  const UtilClass2({Key? key}) : super(key: key);
+class UtilString3 extends StatefulWidget {
+  const UtilString3({Key? key}) : super(key: key);
 
   @override
-  State<UtilClass2> createState() => _UtilClass2State();
+  State<UtilString3> createState() => _UtilString3State();
 }
 
-class _UtilClass2State extends State<UtilClass2> {
+class _UtilString3State extends State<UtilString3> {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(24),
       width: 400,
-      color: Colors.blue.withOpacity(0.2),
+      color: Colors.yellow.withOpacity(0.2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomGestrureWidget(
-              content: "await DeviceInfo.deviceInfo",
-              child: UtilsItem("获取设备信息",
-                  "await DeviceInfo.deviceInfo")),
+              content: "import 'package:module_core/core/extension/string_extension.dart';",
+              child: UtilsItem("数字很大后加单位", "value.fixNumberTwoDecimal")),
           Gaps.hGap24,
           CustomGestrureWidget(
-            content: "EncryptUtils.encryption(content)",
-              child: UtilsItem("密码加密算法RSA", "EncryptUtils.encryption(content)\nEncryptUtils.encryptionWeb(content)")),
+              content: "import 'package:module_core/core/extension/string_extension.dart';",
+              child: UtilsItem("转换成 Double", "value.getDouble")),
           Gaps.hGap24,
           CustomGestrureWidget(
-              content: "Log.i(String tag, List? message)",
-              child: UtilsItem("打印日志", "Android-Log.i(String tag, List? message).. \n iOS- Log.inIOS(dynamic message, {String? tag})")),
+              content: "import 'package:module_core/core/extension/string_extension.dart';",
+              child: UtilsItem("转换成 Double", "value.getDouble")),
           Gaps.hGap24,
           CustomGestrureWidget(
-              content: "SPUtils.getInstance()",
-              child: UtilsItem("SPUtils 数据持久化", "SPUtils.getInstance()")),
+              content: "import 'package:module_core/core/extension/string_extension.dart';",
+              child: UtilsItem("转换成 Int", "value.getInt")),
           Gaps.hGap24,
-          CustomGestrureWidget(
-            content: "时间工具类...",
-            child: UtilsItem("时间工具 CustomDateUtils",
-                "CustomDateUtils.(...)"),
-          ),
-          Gaps.hGap24,
-          CustomGestrureWidget(
-            content: "CountDownUtils(int start, int end, {this.callBack})",
-            child: UtilsItem("倒计时工具",
-                "CountDownUtils(int start, int end, {this.callBack})"),
-          ),
         ],
       ),
     );
   }
+
 }

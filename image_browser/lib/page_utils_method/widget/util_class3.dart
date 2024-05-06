@@ -8,6 +8,7 @@ import 'package:image_browser/page_custom_widget/widget/cw/cw_common_divider.dar
 import 'package:image_browser/page_custom_widget/widget/cw/cw_common_expansiontile.dart';
 import 'package:image_browser/page_custom_widget/widget/cw/cw_common_fab.dart';
 import 'package:image_browser/page_custom_widget/widget/other/custom_toast.dart';
+import 'package:image_browser/page_utils_method/widget/item/utils_item.dart';
 import 'package:image_browser/theme/bf_global.dart';
 import 'package:image_browser/theme/color_ext.dart';
 
@@ -30,53 +31,20 @@ class _UtilClass3State extends State<UtilClass3> {
         children: [
           CustomGestrureWidget(
               content: "SystemUtils",
-              child: item("SystemUtils返回 endRefresh",
+              child: UtilsItem("SystemUtils返回 endRefresh",
                   "SystemUtils.backToSystomApp()\nSystemUtils.endRefresh(RefreshController refreshController)")),
           Gaps.hGap24,
           CustomGestrureWidget(
             content: "EncryptUtils.encryption(content)",
-              child: item("密码加密算法RSA", "EncryptUtils.encryption(content)\nEncryptUtils.encryptionWeb(content)")),
+              child: UtilsItem("密码加密算法RSA", "EncryptUtils.encryption(content)\nEncryptUtils.encryptionWeb(content)")),
           Gaps.hGap24,
           CustomGestrureWidget(
-              content: "Log.i(String tag, List? message)",
-              child: item("打印日志", "Android-Log.i(String tag, List? message).. \n iOS- Log.inIOS(dynamic message, {String? tag})")),
+              content: "Map<String, dynamic> verifyResult = await GT4Captcha().verify();",
+              child: UtilsItem("极验 GT4Captcha", "Map<String, dynamic> verifyResult = await GT4Captcha().verify();")),
           Gaps.hGap24,
-          CustomGestrureWidget(
-              content: "SPUtils.getInstance()",
-              child: item("SPUtils 数据持久化", "SPUtils.getInstance()")),
-          Gaps.hGap24,
-          CustomGestrureWidget(
-            content: "时间工具类...",
-            child: item("时间工具 CustomDateUtils",
-                "CustomDateUtils.(...)"),
-          ),
-          Gaps.hGap24,
-          CustomGestrureWidget(
-            content: "CountDownUtils(int start, int end, {this.callBack})",
-            child: item("倒计时工具",
-                "CountDownUtils(int start, int end, {this.callBack})"),
-          ),
         ],
       ),
     );
   }
 
-  Widget item(title, method) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: bfGlobal.themeColors.textPrimary.f18W700,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          method,
-          style: bfGlobal.themeColors.textSecondary.f16W400,
-        ),
-      ],
-    );
-  }
 }
