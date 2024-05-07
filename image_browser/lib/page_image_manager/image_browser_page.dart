@@ -123,25 +123,18 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
                 TextButton(onPressed: (){
                   openFolderPicker();
                 }, child: const Text("Select File")),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(child: Text(pathLocal))
               ],
             ),
             Row(
               children: [
-                Checkbox(value: isCopyCode, onChanged: (value){
-                  setState(() {
-                    isCopyCode = value ?? false;
-                  });
-                }),
-                Text("是否复制代码"),
-                SizedBox(width: 50,),
                 TextButton(onPressed: (){
                   _copySvg("import 'package:flutter_svg/flutter_svg.dart';");
                 }, child: const Text("复制svg头文件")),
-                SizedBox(width: 50,),
-                Text("图片大小"),
-                SizedBox(width: 10,),
+                const SizedBox(width: 50,),
+                const Text("图片大小"),
+                const SizedBox(width: 10,),
                 Container(
                   width: 50,
                   height: 30,
@@ -156,19 +149,19 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
                     controller: textEditingController,
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 0),
                       alignLabelWithHint: false,
                       border: InputBorder.none,
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder:  OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
-                      enabledBorder: const OutlineInputBorder(
+                      enabledBorder:  OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
-                      disabledBorder: const OutlineInputBorder(
+                      disabledBorder:  OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
-                      errorBorder: const OutlineInputBorder(
+                      errorBorder:  OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
-                      focusedErrorBorder: const OutlineInputBorder(
+                      focusedErrorBorder:  OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
                     ),
                   ),
@@ -180,7 +173,7 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
                   _saveSize();
 
                 }, child: const Text("确定")),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 TextButton(onPressed: () async {
                   Navigator.pushNamed(context, '/ImageSearchPage');
                 }, child: const Text("搜索")),
@@ -188,23 +181,23 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
             ),
             TabBar(
               controller: _controller,
-                tabs: [
+                tabs: const [
               Tab(
-                child: const Text("PNG"),
+                child: Text("PNG"),
               ),
               Tab(
-                child: const Text("SVG"),
+                child: Text("SVG"),
               )
             ]),
-            if(segmentPngMap.length > 0 && segmentSvgMap.length > 0)
+            if(segmentPngMap.isNotEmpty && segmentSvgMap.isNotEmpty)
             Expanded(
                 child: TabBarView(
                   controller: _controller,
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     !isLoading ? ImageDisplayPage(imageFilesMap: segmentPngMap, isCopyCode: isCopyCode, size: size,) : Container(),
                     !isLoading ? ImageDisplayPage(imageFilesMap: segmentSvgMap, isCopyCode: isCopyCode, size: size,) : Container()
                   ],
-                  physics: const NeverScrollableScrollPhysics(),
                 )
             )
           ],

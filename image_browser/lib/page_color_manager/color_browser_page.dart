@@ -1,21 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
+import 'package:image_browser/constant/gaps.dart';
 import 'package:image_browser/page_color_manager/widget/color_item.dart';
 import 'package:image_browser/page_custom_widget/widget/other/custom_toast.dart';
-import 'package:image_browser/page_image_manager/image_display_page.dart';
-import 'package:image_browser/utils/event_bus_utils.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:image/image.dart' as img;
 
 class ColorBrowserPage extends StatefulWidget {
   const ColorBrowserPage({Key? key}) : super(key: key);
@@ -27,7 +21,7 @@ class ColorBrowserPage extends StatefulWidget {
 class _ColorBrowserPageState extends State<ColorBrowserPage>
     with SingleTickerProviderStateMixin {
   String pathLocal = '';
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   // false 赋值名称 true 复制代码
   bool isCopyCode = false;
@@ -156,7 +150,7 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
                       openFolderPicker();
                     },
                     child: const Text("Select File")),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Expanded(child: Text(pathLocal))
@@ -164,8 +158,8 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
             ),
             Row(
               children: [
-                Text("搜索"),
-                SizedBox(
+                const Text("搜索"),
+                const SizedBox(
                   width: 10,
                 ),
                 Container(
@@ -183,28 +177,29 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
                     textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 0),
                       alignLabelWithHint: false,
                       border: InputBorder.none,
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
-                      enabledBorder: const OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
-                      disabledBorder: const OutlineInputBorder(
+                      disabledBorder: OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
-                      errorBorder: const OutlineInputBorder(
+                      errorBorder: OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
-                      focusedErrorBorder: const OutlineInputBorder(
+                      focusedErrorBorder: OutlineInputBorder(
                           gapPadding: 0, borderSide: BorderSide.none),
                     ),
                   ),
                 ),
               ],
             ),
+            Gaps.hGap10,
             Expanded(
                 child: Container(
-              color: Colors.black.withOpacity(0.05),
+              //color: Colors.black.withOpacity(0.05),
               child: ListView(
                 children: [
                   Wrap(
