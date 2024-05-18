@@ -42,6 +42,8 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
   Set<String> iosFilePath = {};
   bool isLoading = true;
 
+  UniqueKey uniqueKey1 = UniqueKey();
+  UniqueKey uniqueKey2 = UniqueKey();
 
   @override
   void initState() {
@@ -177,6 +179,12 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
                 TextButton(onPressed: () async {
                   Navigator.pushNamed(context, '/ImageSearchPage');
                 }, child: const Text("搜索")),
+                const SizedBox(width: 20,),
+                TextButton(onPressed: () async {
+                  if(pathLocal.isNotEmpty){
+                    displayImages(pathLocal);
+                  }
+                }, child: const Text("刷新")),
               ],
             ),
             TabBar(
@@ -195,8 +203,8 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
                   controller: _controller,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    !isLoading ? ImageDisplayPage(imageFilesMap: segmentPngMap, isCopyCode: isCopyCode, size: size,) : Container(),
-                    !isLoading ? ImageDisplayPage(imageFilesMap: segmentSvgMap, isCopyCode: isCopyCode, size: size,) : Container()
+                    !isLoading ? ImageDisplayPage(imageFilesMap: segmentPngMap, isCopyCode: isCopyCode, size: size, key: uniqueKey1,) : Container(),
+                    !isLoading ? ImageDisplayPage(imageFilesMap: segmentSvgMap, isCopyCode: isCopyCode, size: size, key: uniqueKey2,) : Container()
                   ],
                 )
             )
@@ -224,7 +232,8 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
       //displayImages(folderPath);
       pathLocal = folderPath;
       _clearData();
-      eventBus.fire(EventReselectImageUrl());
+      //eventBus.fire(EventReselectImageUrl());
+      displayImages(folderPath, isAllRefresh: true);
       // 处理选择的文件夹路径
     } else {
       print('No folder selected.');
@@ -238,7 +247,7 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
   }
 
   // 显示图片
-  Future<void> displayImages(String folderPath) async {
+  Future<void> displayImages(String folderPath, {isAllRefresh = false}) async {
     EasyLoading.show(
       status: 'loading...',
       maskType: EasyLoadingMaskType.black,
@@ -301,6 +310,10 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
     print(segmentSvgMap);
     print(segmentPngMap);
     isLoading = false;
+    if(isAllRefresh){
+      uniqueKey1 = UniqueKey();
+      uniqueKey2 = UniqueKey();
+    }
     setState(() {});
     EasyLoading.dismiss();
   }

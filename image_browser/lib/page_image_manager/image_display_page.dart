@@ -52,6 +52,8 @@ class _ImageDisplayPageState extends State<ImageDisplayPage>
     // if(_currentWidth.compareTo(sizeD) != 0){
     //   _calculateCrossCount();
     // }
+    imageFiles = widget.imageFilesMap[titles[_controller.index]] ?? [];
+    print(_controller.index);
     return Container(
       child: Column(
         children: [

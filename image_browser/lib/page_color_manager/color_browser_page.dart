@@ -194,6 +194,12 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
                     ),
                   ),
                 ),
+                const SizedBox(width: 50,),
+                TextButton(onPressed: (){
+                  if(pathLocal.isNotEmpty){
+                    getFileContent(pathLocal);
+                  }
+                }, child: Text("刷新"))
               ],
             ),
             Gaps.hGap10,
