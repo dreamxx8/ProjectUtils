@@ -150,6 +150,13 @@ class _ImageGridWidgetState extends State<ImageGridWidget> with WidgetsBindingOb
             copy(file, false);
           },
         ),
+        PopupMenuItem(
+          child: Text('Copy Define'),
+          value: 'Copy',
+          onTap: () async {
+            _copyDefine(file);
+          },
+        ),
       ],
     ).then((value) {
       if (value == 'edit') {
@@ -220,6 +227,21 @@ class _ImageGridWidgetState extends State<ImageGridWidget> with WidgetsBindingOb
     _showToast(copyValue);
   }
 
+  _copyDefine(File file){
+    String fileName = path.basename(file.path);
+    String name = fileName.split('.')[0].toUpperCase();
+    List<String> names = file.path.split("coinw_flutter");
+    String subName = names[0];
+    if(names.length > 1){
+      subName = names[1];
+    }
+    String value = "static const String ${name} = \"packages${subName}\";";
+
+    Clipboard.setData(ClipboardData(text: value));
+    // 显示Toast消息
+    _showToast(value);
+
+  }
 
   _showToast(String value){
     // 显示Toast消息
