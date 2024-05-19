@@ -60,8 +60,14 @@ class _ImageDisplayPageState extends State<ImageDisplayPage>
           TabBar(
             controller: _controller,
             tabs: titles.map((title) {
-              return Tab(
-                child: Text(title),
+              int index =  titles.indexOf(title);
+              return GestureDetector(
+                onSecondaryTapDown: (detail){
+                  showPopupMenu(context, detail.globalPosition, index);
+                },
+                child: Tab(
+                  child: Text(title),
+                ),
               );
             }).toList(),
             isScrollable: true,
@@ -80,7 +86,37 @@ class _ImageDisplayPageState extends State<ImageDisplayPage>
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
+  void showPopupMenu(BuildContext context, Offset position, int index) {
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(position.dx, position.dy, position.dx, position.dy),
+      items: [
+        PopupMenuItem(
+          child: Text('Open In Finder'),
+          value: 'Copy',
+          onTap: () async {
+            List<File> files = widget.imageFilesMap[titles[index]] ?? [];
 
+            if(files.length > 0){
+              File file = files.first;
+              final directoryPath = file.parent.absolute.path;
+              final result = await Process.run('open', ['-R', directoryPath], workingDirectory: directoryPath);
+              print(result.stdout);
+              print(result.stderr);
+            }
+
+
+          },
+        ),
+      ],
+    ).then((value) {
+      if (value == 'edit') {
+        print('Edit clicked');
+      } else if (value == 'delete') {
+        print('Delete clicked');
+      }
+    });
+  }
 
 
 }
