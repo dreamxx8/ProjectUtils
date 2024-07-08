@@ -199,7 +199,12 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
                   if(pathLocal.isNotEmpty){
                     getFileContent(pathLocal);
                   }
-                }, child: Text("刷新"))
+                }, child: Text("刷新")),
+                const SizedBox(width: 50,),
+                TextButton(onPressed: () async {
+                  final SharedPreferences prefs = await SharedPreferences.getInstance();
+                  prefs.clear();
+                }, child: Text("清空"))
               ],
             ),
             Gaps.hGap10,
