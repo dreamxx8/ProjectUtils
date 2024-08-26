@@ -270,7 +270,7 @@ class _ImageBrowserPageState extends State<ImageBrowserPage> with SingleTickerPr
           // 如果文件位于文件夹中，则将其路径添加到列表中
           // 获取图像路径列表并更新UI
 
-          await getImageSize(file);
+          //await getImageSize(file);
           String? key = _fileDirectoryName(file);
           if(key!=null){
             imageFilesPng.add(file);
