@@ -43,14 +43,14 @@ const Color black_thirty = const Color(0x51000000);
 const Color black_ten = const Color(0x19000000);
 
 // <!--  涨的颜色  -->
-const color_up = const Color(0xFF17BE9E);
+const Color color_up = const Color(0xFF17BE9E);
 // <!--  跌的颜色  -->
-const color_drop = const Color(0xFFE65261);
+const Color color_drop = const Color(0xFFE65261);
 
 // <!--  涨跌的颜色  -->
-const color_green = const Color(0xFF17BE9E);
+const Color color_green = const Color(0xFF17BE9E);
 // <!--  涨跌的颜色  -->
-const color_red = const Color(0xFFE65261);
+const Color color_red = const Color(0xFFE65261);
 
 // <!--=====  文字  =====-->
 // <!--  主文字  -->

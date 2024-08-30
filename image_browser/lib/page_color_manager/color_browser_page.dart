@@ -44,6 +44,7 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
         List<ColorDecode> filter = [];
         allColors.forEach((element) {
           if((element.name ?? "").toLowerCase().contains(textEditingController.text.toLowerCase()) ||
+              isCharactersInOrder(textEditingController.text.toLowerCase(), (element.name ?? "").toLowerCase()) ||
               (element.light ?? "").toLowerCase().contains(textEditingController.text.toLowerCase()) ||
               (element.dark ?? "").toLowerCase().contains(textEditingController.text.toLowerCase())){
             filter.add(element);
@@ -58,6 +59,25 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
     _getLocalPath();
   }
 
+  bool isCharactersInOrder(String input, String target) {
+    if (input.length > target.length) {
+      return false;
+    }
+
+    int index = 0;
+    for (int i = 0; i < target.length; i++) {
+      if (target[i] == input[index]) {
+        index++;
+      }
+      if (index == input.length) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+
   _getLocalPath() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? path = prefs.getString("color_path");
@@ -71,27 +91,68 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
     }
   }
 
+  String fileLightPath(String? parentPath){
+    return "${parentPath}/lib/module_base/theme/colors_light.dart";
+  }
+  String fileDarkPath(String? parentPath){
+    return "${parentPath}/lib/module_base/theme/colors_dark.dart";
+  }
+  String fileConstPath(String? parentPath){
+    return "${parentPath}/lib/core/constant/color_const.dart";
+  }
+
   Future<void> getFileContent(String folderPath) async {
 
-    File fileLight = File("${folderPath}/colors_light.dart");
-    File fileDark = File("${folderPath}/colors_dark.dart");
+    File fileLight = File(fileLightPath(folderPath));
+    File fileDark = File(fileDarkPath(folderPath));
+
+    File fileColorConst = File(fileConstPath(folderPath));
+
 
     String contentsLight = await fileLight.readAsString();
     String contentsDark = await fileDark.readAsString();
+    String fileColorConstContent = await fileColorConst.readAsString();
+    List<String> constSplitList = fileColorConstContent.split("\n");
+    Map<String, String> colorConstMap = {};
+    constSplitList.forEach((element) {
+      if (element.contains("Color") && element.contains("0x")) {
+        RegExp nameRegex = RegExp(r'(?<=const Color )\w+(?=\s=)');
+        RegExp valueRegex = RegExp(r'(?<=\()\w+(?=\))');
+        String name = nameRegex.stringMatch(element) ?? '';
+        String? color = valueRegex.stringMatch(element) ?? '';
+        print('name: $name');
+        print('value: $color');
+        colorConstMap[name] = color;
+      }
+    });
+    // 查找引用color
+    constSplitList.forEach((element) {
+      if (element.contains("Color") && !element.contains("0x")) {
+        RegExp nameRegex = RegExp(r'(?<=const Color )\w+(?=\s=)');
+        RegExp valueRegex = RegExp(r'(?<= = )\w+');
+        String name = nameRegex.stringMatch(element) ?? '';
+        String value = valueRegex.stringMatch(element) ?? '';
 
+        print('colorBlack50: $name');
+        print('value: $value');
+        colorConstMap[name] = colorConstMap[value] ?? '';
+      }
+    });
+
+    
     List<String> splitLight = contentsLight.split("\n");
     List<String> darkLight = contentsDark.split("\n");
     Map<String, String> lightMap = {};
     Map<String, String> darkMap = {};
 
     splitLight.forEach((element) {
-      if (element.contains("0x")) {
-        _decodeColor(element, lightMap);
+      if (element.contains("Color get")) {
+        _decodeColor(element, lightMap, colorConstMap);
       }
     });
     darkLight.forEach((element) {
-      if (element.contains("0x")) {
-        _decodeColor(element, darkMap);
+      if (element.contains("Color get")) {
+        _decodeColor(element, darkMap, colorConstMap);
       }
     });
     allColors.clear();
@@ -242,8 +303,8 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
         await FilePicker.platform.getDirectoryPath(initialDirectory: pathLocal);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('color_path', folderPath ?? "");
-    File fileLight = File("${folderPath}/colors_light.dart");
-    File fileDark = File("${folderPath}/colors_dark.dart");
+    File fileLight = File(fileLightPath(folderPath));
+    File fileDark = File(fileDarkPath(folderPath));
 
     if (!await fileLight.exists() || !await fileDark.exists()) {
       CustomToast.showError("文件不存在");
@@ -252,7 +313,7 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
     getFileContent(folderPath ?? "");
   }
 
-  _decodeColor(String element, Map<String, String> map) {
+  _decodeColor(String element, Map<String, String> map, Map<String, String> colorConstMap) {
     Match? match = colorRegExp.firstMatch(element);
     if (match != null) {
       String colorName = match.group(1)!;
@@ -261,7 +322,44 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
       print("Color Hex: $colorHex");
       map[colorName] = colorHex;
     } else {
-      print("No match found!");
+
+      RegExp nameRegex = RegExp(r'(?<=get )\w+(?= =>)');
+      RegExp colorRegex = RegExp(r'(?<= => )\w+');
+      String? colorName = nameRegex.stringMatch(element) ?? '';
+      String? colorHexName = colorRegex.stringMatch(element);
+      String color = colorConstMap[colorHexName] ?? '';
+
+      if(colorHexName == 'AppConfig'){
+        print("Color Hex: $colorHexName");
+        RegExp regex = RegExp(r'(?<=\? )\b\w+\b');
+        String? otherName = regex.stringMatch(element);
+        if(otherName != null){
+          colorHexName = otherName;
+          color = colorConstMap[colorHexName] ?? '';
+          if(color.isEmpty){
+            color = map[colorHexName] ?? '';
+          }
+        }
+      }
+      print("Color Name: $colorName");
+      print("Color Hex: $colorHexName");
+      print("Color: $color");
+      RegExp opacityRegex = RegExp(r'\b0\.\d+\b');
+      String? opacityValue = opacityRegex.stringMatch(element);
+      print('Opacity value: $opacityValue');
+
+      if(opacityValue != null){
+        double value = 255.0 * (double.tryParse(opacityValue) ?? 0.0);
+        int valueInt = value.round();
+        String hexValue = valueInt.toRadixString(16).toUpperCase();
+        print('Hex value: $hexValue');
+        if(color.length > 4){
+          color = color.replaceRange(2, 4, hexValue);
+        }
+      }
+
+
+      map[colorName] = color;
     }
   }
 
