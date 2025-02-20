@@ -62,6 +62,9 @@ dependencies:
 
   syncfusion_flutter_core: ^22.2.12
   syncfusion_flutter_sliders: ^22.2.12
+  #pointycastle: ^4.0.0
+  encrypt: ^5.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

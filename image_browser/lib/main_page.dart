@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_browser/page_color_manager/color_browser_page.dart';
 import 'package:image_browser/page_custom_widget/custom_widget_page.dart';
 import 'package:image_browser/page_image_manager/image_browser_page.dart';
+import 'package:image_browser/page_net_util/network_parse_util_page.dart';
 import 'package:image_browser/page_utils_method/utils_method_page.dart';
 
 
@@ -69,6 +70,7 @@ class _MainPageState extends State<MainPage> with _MainPageBloc {
         _bottomNavigationBarItem(CupertinoIcons.home, "工具"),
         _bottomNavigationBarItem(CupertinoIcons.arrow_3_trianglepath, "组件"),
         _bottomNavigationBarItem(CupertinoIcons.app_badge, "图片"),
+        _bottomNavigationBarItem(CupertinoIcons.app_badge, "网络"),
       ],
     );
   }
@@ -100,6 +102,7 @@ mixin _MainPageBloc on State<MainPage> {
       UtilsMethodPage(),
       CustomWidgetPage(),
       ImageBrowserPage(),
+      NetworkParseUtilPage()
 
     ];
     _currentPage = _pages[_currentIndex];
