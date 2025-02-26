@@ -17,9 +17,10 @@ samples, guidance on mobile development, and a full API reference.
 
 ## 打包
 flutter build macos --release   
+目录/image_browser/build/macos/Build/Products/Release/image_browser.app
 
 ## 图片
 通过select file 按钮 选择工程中图片目录，例如flutter工程选择module_core/images文件夹 或者ios的Assets文件夹
 
 ## 颜色 
-只适配coinwflutter 工程，选择最新UI设计分支，选择目录module_core/lib/module_base/theme 文件夹，自动加载亮色和暗色模式的色值
+只适配coinwflutter 工程，选择最新UI设计分支，选择目录module_core/ 文件夹，自动加载亮色和暗色模式的色值
