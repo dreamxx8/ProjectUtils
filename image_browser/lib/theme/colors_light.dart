@@ -112,4 +112,14 @@ class ColorsLight extends BaseColors {
   @override
   Color get info => const Color(0xFF8BB6E8);
 
+  ///border
+  //默认容器/组件边框
+  @override
+  Color get borderPrimary => Color(0xFFD9D9D9);
+  //用于分割线颜色
+  @override
+  Color get borderSecondary => Color(0xFFF2F2F2);
+  @override
+  Color get borderBrand => Color(0xFF5227FF);
+
 }

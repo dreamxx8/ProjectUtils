@@ -54,5 +54,12 @@ abstract class BaseColors {
   Color get info;
 
 
+  ///border
+  //默认容器/组件边框
+  Color get borderPrimary;
+  //用于分割线颜色
+  Color get borderSecondary;
+  Color get borderBrand;
+
 
 }

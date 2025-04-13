@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_browser/animated/custom_animation.dart';
+import 'package:image_browser/global.dart';
 import 'package:image_browser/page_image_manager/image_browser_page.dart';
 import 'package:image_browser/page_image_manager/image_search_page.dart';
 import 'package:image_browser/main_page.dart';
+import 'package:image_browser/terminal/terminal_page.dart';
 import 'package:image_browser/utils/event_bus_utils.dart';
+import 'package:image_browser/utils/sp_utils.dart';
+
+import 'app_router.dart';
 
 void main() {
-  EasyLoading.init();
+  // Global.init().then((value){
+  //
+  // });
 
+  EasyLoading.init();
   runApp(const MyApp());
   configLoading();
 }
@@ -69,8 +77,9 @@ class _MyAppState extends State<MyApp> {
         routes: {
           '/ImageSearchPage': (context) => ImageSearchPage(),
         },
-        home: MainPage(),
+        home: const MainPage(),
         builder: EasyLoading.init(),
+        onGenerateRoute: generateRoute,
       ),
     );
   }

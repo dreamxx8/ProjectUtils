@@ -5,6 +5,8 @@ import 'package:image_browser/page_custom_widget/custom_widget_page.dart';
 import 'package:image_browser/page_image_manager/image_browser_page.dart';
 import 'package:image_browser/page_net_util/network_parse_util_page.dart';
 import 'package:image_browser/page_utils_method/utils_method_page.dart';
+import 'package:image_browser/terminal/command_list_page.dart';
+import 'package:image_browser/terminal/terminal_page.dart';
 
 
 class MainPage extends StatefulWidget {
@@ -70,7 +72,8 @@ class _MainPageState extends State<MainPage> with _MainPageBloc {
         _bottomNavigationBarItem(CupertinoIcons.home, "工具"),
         _bottomNavigationBarItem(CupertinoIcons.arrow_3_trianglepath, "组件"),
         _bottomNavigationBarItem(CupertinoIcons.app_badge, "图片"),
-        _bottomNavigationBarItem(CupertinoIcons.app_badge, "网络"),
+        _bottomNavigationBarItem(CupertinoIcons.wand_stars, "网络"),
+        _bottomNavigationBarItem(CupertinoIcons.t_bubble, "终端"),
       ],
     );
   }
@@ -102,7 +105,8 @@ mixin _MainPageBloc on State<MainPage> {
       UtilsMethodPage(),
       CustomWidgetPage(),
       ImageBrowserPage(),
-      NetworkParseUtilPage()
+      NetworkParseUtilPage(),
+      CommandListPage(),
 
     ];
     _currentPage = _pages[_currentIndex];

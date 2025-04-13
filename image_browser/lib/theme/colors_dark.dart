@@ -112,4 +112,16 @@ class ColorsDark extends BaseColors {
   @override
   Color get info => const Color(0xFF8BB6E8);
 
+
+  ///border
+  //默认容器/组件边框
+  @override
+  Color get borderPrimary => Color(0x19FFFFFF); //分割线
+  //用于分割线颜色
+  @override
+  Color get borderSecondary => Color(0x0DFFFFFF);
+  @override
+  Color get borderBrand => Color(0xFF6C4FFF);
+
+
 }

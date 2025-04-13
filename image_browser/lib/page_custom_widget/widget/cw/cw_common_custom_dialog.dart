@@ -28,6 +28,7 @@ class CWCommonCustomDialog extends StatefulWidget {
   final bool buttonVertical;
   final TextAlign? textAlign;
   ValueSetter<bool>? resultCallback;
+  final double? width;
 
    CWCommonCustomDialog(
       {Key? key,
@@ -45,7 +46,9 @@ class CWCommonCustomDialog extends StatefulWidget {
       this.cancelCallback,
       this.buttonVertical = false,
       this.textAlign,
-      this.resultCallback})
+      this.resultCallback,
+      this.width
+      })
       : super(key: key);
 
   @override
@@ -86,6 +89,7 @@ class _CustomDialogState extends State<CWCommonCustomDialog> {
             content: Stack(
               children: [
                 Container(
+                  width: widget.width,
                   color: bfGlobal.themeColors.backgroundPrimary,
                   // padding: EdgeInsets.symmetric(horizontal: 0.w),
                   child: Column(

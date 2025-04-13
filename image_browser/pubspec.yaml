@@ -64,6 +64,9 @@ dependencies:
   syncfusion_flutter_sliders: ^22.2.12
   #pointycastle: ^4.0.0
   encrypt: ^5.0.1
+  # 执行终端命令核心库
+  process_run: ^0.12.4
+
 
 dev_dependencies:
   flutter_test:

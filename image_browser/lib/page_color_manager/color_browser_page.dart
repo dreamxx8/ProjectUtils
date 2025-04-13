@@ -9,6 +9,7 @@ import 'package:image_browser/constant/gaps.dart';
 import 'package:image_browser/page_color_manager/widget/color_item.dart';
 import 'package:image_browser/page_custom_widget/widget/other/custom_toast.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:image_browser/utils/sp_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ColorBrowserPage extends StatefulWidget {
@@ -57,6 +58,7 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
       setState(() {});
     });
     _getLocalPath();
+    SPUtils.initSp();
   }
 
   bool isCharactersInOrder(String input, String target) {
@@ -79,6 +81,7 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
 
 
   _getLocalPath() async {
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? path = prefs.getString("color_path");
     if (path != null) {
