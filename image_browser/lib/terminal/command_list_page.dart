@@ -166,6 +166,8 @@ class _CommandListPageState extends State<CommandListPage> {
           model.mark = markController.text;
           model.command = commandController.text;
           model.params = paramsController.text;
+          model.path = pathController.text;
+
         });
         saveLocalData();
       },
@@ -178,12 +180,15 @@ class _CommandListPageState extends State<CommandListPage> {
     markController.text = "";
     commandController.text = "";
     paramsController.text = "";
+    pathController.text = "";
+
   }
 
 
   void setControllerValue(CommandModel model){
     markController.text = model.mark;
     commandController.text = model.command;
+    pathController.text = model.path;
     paramsController.text = model.params;
   }
   void saveLocalData(){

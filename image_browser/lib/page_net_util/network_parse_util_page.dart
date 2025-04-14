@@ -27,7 +27,7 @@ class _NetworkParseUtilPageState extends State<NetworkParseUtilPage> {
 
   FocusNode focusNode = FocusNode();
 
-  String result = "";
+  final TextEditingController _loginController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,45 +42,56 @@ class _NetworkParseUtilPageState extends State<NetworkParseUtilPage> {
           },
           child: Container(
             padding: EdgeInsets.symmetric( horizontal: 24),
-            child: ListView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  child: Container(
+                    decoration: RegularBorder(),
+                    height: 200,
+                    child: TextField(
+                      controller: controller,
+                      maxLines: null,
+                      focusNode: focusNode,
+                      decoration: InputDecoration(
+                        hintText: '输入加密信息',
+                        border: InputBorder.none, // 去掉边框
+                      ),
+                    ),
+                  )
+                ),
+                Gaps.hGap8,
+                Row(
                   children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 24),
-                      child: Container(
-                        decoration: RegularBorder(),
-                        height: 200,
-                        child: TextField(
-                          controller: controller,
-                          maxLines: null,
-                          focusNode: focusNode,
-                          decoration: InputDecoration(
-                            hintText: '输入加密信息',
-                            border: InputBorder.none, // 去掉边框
-                          ),
-                        ),
-                      )
-                    ),
-                    Gaps.hGap8,
-                    Row(
-                      children: [
-                        BigButton(onPressed: (){
-                          parseText();
-                        }, text: "解析", option: BigBtnOption(width: 80,),),
-                        Gaps.wGap24,
-                        BigButton(onPressed: (){
-                          ClipboardUtil.setDataToastMsg(result, toastMsg: "复制成功");
-                        }, text: "复制", option: BigBtnOption(width: 80),),
-                      ],
-                    ),
-                    Gaps.hGap16,
-                    Text("结果", style: bfGlobal.theme.f18W500,),
-                    Gaps.hGap16,
-                    Text(result, style: bfGlobal.theme.f14W400,),
+                    BigButton(onPressed: (){
+                      parseText();
+                    }, text: "解析", option: BigBtnOption(width: 80,),),
+                    Gaps.wGap24,
+                    BigButton(onPressed: (){
+                      ClipboardUtil.setDataToastMsg(_loginController.text, toastMsg: "复制成功");
+                    }, text: "复制", option: BigBtnOption(width: 80),),
                   ],
                 ),
+                Gaps.hGap16,
+                Text("结果", style: bfGlobal.theme.f18W500,),
+                Gaps.hGap16,
+                Expanded(
+                  child: Container(
+                    //height: MediaQuery.of(context).size.height * 0.3, // 30%屏幕高度
+                    decoration: RegularBorder(colorBorder: bfGlobal.themeColors.borderPrimary, backgroundColor: Colors.transparent),
+                    child: TextField(
+                      maxLines: null,
+                      readOnly: true,
+                      controller: _loginController,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+                Gaps.hGap16,
               ],
             ),
           ),
@@ -108,7 +119,7 @@ class _NetworkParseUtilPageState extends State<NetworkParseUtilPage> {
 
     String text = RSAUtils.rsaParse(decodedString);
     setState(() {
-      result = text;
+      _loginController.text = text;
     });
   }
 }

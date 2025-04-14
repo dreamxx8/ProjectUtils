@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_browser/terminal/model/command_model.dart';
+import 'package:image_browser/theme/bf_global.dart';
+import 'package:image_browser/utils/common_border.dart';
 import 'package:process_run/cmd_run.dart';
 import 'package:process_run/process_run.dart';
 
@@ -22,6 +24,8 @@ class TerminalToolPage extends StatefulWidget {
 
 class _TerminalToolPageState extends State<TerminalToolPage> {
   final TextEditingController _directoryController = TextEditingController();
+  final TextEditingController _loginController = TextEditingController();
+
   final ScrollController _logScrollController = ScrollController();
   final List<String> _logs = [];
   bool _isExecuting = false;
@@ -59,14 +63,20 @@ class _TerminalToolPageState extends State<TerminalToolPage> {
             const SizedBox(height: 16),
             // 日志展示
             Expanded(
-              child: SingleChildScrollView(
-                controller: _logScrollController,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _logs.map((log) => Text(log)).toList(),
+                child: Container(
+                  //height: MediaQuery.of(context).size.height * 0.3, // 30%屏幕高度
+                  decoration: RegularBorder(colorBorder: bfGlobal.themeColors.borderPrimary, backgroundColor: Colors.transparent),
+                  child: TextField(
+                    maxLines: null,
+                    readOnly: true,
+                    controller: _loginController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                    ),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),
@@ -117,8 +127,9 @@ class _TerminalToolPageState extends State<TerminalToolPage> {
   void _addLog(String message) {
     setState(() {
       _logs.add('${DateTime.now().toString().split('.')[0]}: $message');
-      _logScrollController
-          .jumpTo(_logScrollController.position.maxScrollExtent);
+      _loginController.text += "\n$message";
+      //_logScrollController
+      //    .jumpTo(_logScrollController.position.maxScrollExtent);
     });
   }
 }

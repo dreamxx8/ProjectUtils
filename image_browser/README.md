@@ -25,6 +25,13 @@ flutter build macos --release
 ## 颜色 
 只适配coinwflutter 工程，选择最新UI设计分支，选择目录module_core/ 文件夹，自动加载亮色和暗色模式的色值
 
+## 网络
+复制加密字符，进行解密
+
+## 终端
+添加命令 可设置备注名称， 工作目录 命令 例如 /usr/bin/python3 或 /usr/local/bin/pod
+参数 用空格分割 python3 可执行脚本多语言检测脚本等功能
+
 
 
 针对Xcode编译过程中出现的Command PhaseScriptExecution failed错误，结合错误信息bad interpreter: Operation not permitted，以下是具体原因和解决方案：
