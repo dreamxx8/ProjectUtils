@@ -165,10 +165,10 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
       Color? colorLight;
       Color? colorDark;
       if (light != null) {
-        colorLight = Color(int.parse(light));
+        colorLight = Color(int.tryParse(light) ?? 0xFFFFFFFF);
       }
       if (dark != null) {
-        colorDark = Color(int.parse(dark));
+        colorDark = Color(int.tryParse(dark) ?? 0xFFFFFFFF);
       }
       ColorDecode colorDecode = ColorDecode(
           name: key,
@@ -267,7 +267,8 @@ class _ColorBrowserPageState extends State<ColorBrowserPage>
                 const SizedBox(width: 50,),
                 TextButton(onPressed: () async {
                   final SharedPreferences prefs = await SharedPreferences.getInstance();
-                  prefs.clear();
+                  prefs.remove("color_path");
+                  prefs.remove("path");
                 }, child: Text("清空"))
               ],
             ),
