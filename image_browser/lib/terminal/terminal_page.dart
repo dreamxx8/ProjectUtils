@@ -175,11 +175,14 @@ class TerminalService {
 
       // 打印结果
       if (result.exitCode == 0) {
-        print('✅ pod install 成功！');
+        logCallback?.call("✅ 执行成功");
+        print('✅  成功！');
       } else {
-        print('❌ pod install 失败: ${result.stderr}');
+        logCallback?.call("❌执行失败 : ${result.stderr}");
+        print('❌失败: ${result.stderr}');
       }
     } catch (e) {
+      logCallback?.call('⚠️ 错误: $e');
       print('⚠️ 错误: $e');
       rethrow;
     }
