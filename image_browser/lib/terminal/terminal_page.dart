@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:image_browser/terminal/model/command_model.dart';
 import 'package:image_browser/theme/bf_global.dart';
 import 'package:image_browser/utils/common_border.dart';
-import 'package:process_run/cmd_run.dart';
 import 'package:process_run/process_run.dart';
+import 'package:process_run/shell_run.dart';
+
 
 class TerminalToolPage extends StatefulWidget {
   static const String routeName = "TerminalToolPage";
@@ -162,7 +163,7 @@ class TerminalService {
 
 
       // 执行命令：切换目录并运行 pod install
-      final result = await run(
+      final result = await runExecutableArguments(
           //'/usr/local/bin/pod',
           //'/usr/bin/python3',
           command,
@@ -171,7 +172,10 @@ class TerminalService {
           workingDirectory: targetDir, // 设置工作目录
           runInShell: true, // 在 shell 中执行
           verbose: true, // 显示详细输出
-          stdout: stdout);
+          stdout: stdout,
+          environment: { 'LANG': 'en_US.UTF-8', 'LC_ALL': 'en_US.UTF-8',}
+      );
+
 
       // 打印结果
       if (result.exitCode == 0) {

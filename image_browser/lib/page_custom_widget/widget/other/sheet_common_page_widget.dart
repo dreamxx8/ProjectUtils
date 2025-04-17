@@ -73,7 +73,7 @@ class _SheetCommonPageWidgetState extends State<SheetCommonPageWidget> {
   _lineView() {
     return Container(
       height: 7,
-      color: bfGlobal.themeColors.textSecondary,
+      color: bfGlobal.themeColors.borderSecondary,
     );
   }
 
