@@ -80,7 +80,7 @@ class _CommandListPageState extends State<CommandListPage> {
                   TerminalToolPage.start(context, model);
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -88,15 +88,15 @@ class _CommandListPageState extends State<CommandListPage> {
                         constraints: const BoxConstraints(
                           minWidth: 26
                         ),
-                          child: Text("${index+1}", style: bfGlobal.themeColors.textPrimary.f20W700,)),
+                          child: Text("${index+1}", style: bfGlobal.themeColors.textPrimary.f16W700,)),
                       Expanded(child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("${model.mark}", style: bfGlobal.themeColors.textPrimary.f20W700,),
+                          Text("${model.mark}", style: bfGlobal.themeColors.textPrimary.f14W700,),
                           Gaps.hGap8,
-                          Text("命令：${model.command}     参数：${model.params}", style: bfGlobal.themeColors.textSecondary.f16W400,),
-                          Gaps.hGap8,
-                          Text("目录：${model.path}", style: bfGlobal.themeColors.textSecondary.f16W400,),
+                          Text("命令：${model.command}     参数：${model.params}", style: bfGlobal.themeColors.textSecondary.f12W400,),
+                          Gaps.hGap2,
+                          Text("目录：${model.path}", style: bfGlobal.themeColors.textSecondary.f12W400,),
 
                         ],
                       )),
@@ -216,8 +216,8 @@ class _CommandListPageState extends State<CommandListPage> {
     if(parts.length > 1){
       String lastTag = parts.last;
       int? tag = int.tryParse(lastTag);
-      mark = parts.first;
       if(tag != null){
+        mark = parts.first;
         mark = "$mark ${tag + 1}";
       }else{
         mark = "$mark 2";

@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_browser/constant/gaps.dart';
+import 'package:image_browser/page_color_manager/widget/color_item.dart';
 import 'package:image_browser/terminal/model/command_model.dart';
 import 'package:image_browser/theme/bf_global.dart';
+import 'package:image_browser/theme/color_ext.dart';
 import 'package:image_browser/utils/common_border.dart';
 import 'package:process_run/process_run.dart';
 import 'package:process_run/shell_run.dart';
@@ -57,10 +60,20 @@ class _TerminalToolPageState extends State<TerminalToolPage> {
             ),
             const SizedBox(height: 16),
             // 执行按钮
-            ElevatedButton(
-              onPressed: _executePodInstall,
-              child: Text(_isExecuting ? '$_commandText 执行中...' : '$_commandText 执行'),
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: _executePodInstall,
+                  child: Text(_isExecuting ? '$_commandText 执行中...' : '$_commandText 执行', style: bfGlobal.themeColors.textBrand.f12W400,),
+                ),
+                Gaps.wGap24,
+                ElevatedButton(
+                  onPressed: _clearLog,
+                  child: Text('清除', style: bfGlobal.themeColors.textBrand.f12W400,),
+                ),
+              ],
             ),
+
             const SizedBox(height: 16),
             // 日志展示
             Expanded(
@@ -70,8 +83,9 @@ class _TerminalToolPageState extends State<TerminalToolPage> {
                   child: TextField(
                     maxLines: null,
                     readOnly: true,
+                    style: bfGlobal.themeColors.textPrimary.f12W400.copyWith(height: 1.5),
                     controller: _loginController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
                     ),
@@ -120,6 +134,13 @@ class _TerminalToolPageState extends State<TerminalToolPage> {
     }
   }
 
+  _clearLog(){
+    setState(() {
+      _logs.clear();
+      _loginController.text = "";
+    });
+  }
+
   bool _isError(String text) {
     return text.contains('error') || text.contains('fail');
   }
@@ -127,8 +148,9 @@ class _TerminalToolPageState extends State<TerminalToolPage> {
   /// 添加日志到界面
   void _addLog(String message) {
     setState(() {
-      _logs.add('${DateTime.now().toString().split('.')[0]}: $message');
-      _loginController.text += "\n$message";
+      String text = '${DateTime.now().toString().split('.')[0]}: $message';
+      _logs.add(text);
+      _loginController.text += message;
       //_logScrollController
       //    .jumpTo(_logScrollController.position.maxScrollExtent);
     });
