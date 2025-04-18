@@ -70,7 +70,7 @@ class _CommandListPageState extends State<CommandListPage> {
         ),
       ], ),
       body: Container(
-        margin: const EdgeInsets.only(top: 30, bottom: 30),
+        //margin: const EdgeInsets.only(top: 10, bottom: 0),
         child: ListView.separated(
             itemCount: _commandList.length,
             itemBuilder: (BuildContext context, int index){
